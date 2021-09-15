@@ -3,7 +3,7 @@ const { ProvidePlugin } = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-const StaticSiteWebpackPlugin = require('../static-site-webpack-plugin');
+const StaticSiteWebpackPlugin = require('../index');
 
 /** @type {import('webpack').Configuration} */
 const config = {
