@@ -1,22 +1,13 @@
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment } from 'react';
 
 import { NavLink as ReactRouterNavLink, Route, Switch } from 'react-router-dom';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
+import { Counter } from './Counter';
+
 import '@fontsource/jetbrains-mono/latin-400.css';
 import './styles.css';
-
-const Counter: React.FC = () => {
-  const [count, setCount] = useState(1);
-
-  useEffect(() => {
-    const interval = setInterval(() => setCount(count + 1), 100);
-    return () => clearInterval(interval);
-  });
-
-  return <Fragment>{count}</Fragment>;
-};
 
 export const App: React.FC = () => (
   <Fragment>

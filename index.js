@@ -6,7 +6,7 @@ module.exports = class StaticSiteWebpackPlugin {
   static defaultOptions = {
     __filename: null,
     paths: ['/'],
-    entry: 'index.js',
+    entry: './src/index.ssr.js',
     globals: {},
     overrideConfig: null,
   };
@@ -78,7 +78,7 @@ module.exports = class StaticSiteWebpackPlugin {
     return new Promise((resolve, reject) => {
       compiler.run((err, stats) => {
         if (err) {
-          reject(err);
+          return reject(err);
         }
 
         if (stats.hasErrors()) {
@@ -87,24 +87,26 @@ module.exports = class StaticSiteWebpackPlugin {
             warnings: true,
           });
 
-          reject(new Error(message));
+          return reject(new Error(message));
         }
 
-        resolve(fs.data['bundle.js'].toString());
+        resolve(fs.data.dist['bundle.js'].toString());
       });
     });
   }
 
   createSsrWebpackConfig(browserWebpackConfig) {
     const { entry, overrideConfig } = this.options;
+    const clientConfig = require(this.options.__filename);
 
     const ssrConfig = {
       // ...browserWebpackConfig,
-      ...require(this.options.__filename),
+      ...clientConfig,
       target: 'node',
       entry,
       output: {
-        path: '/',
+        ...clientConfig.output,
+        path: '/dist',
         filename: 'bundle.js',
         libraryTarget: 'commonjs',
       },

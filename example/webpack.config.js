@@ -5,13 +5,16 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const StaticSiteWebpackPlugin = require('../index');
 
+const { NODE_ENV = 'development' } = process.env;
+const prod = NODE_ENV === 'production';
+
 /** @type {import('webpack').Configuration} */
 const config = {
-  mode: 'development',
-  // target: 'node',
+  mode: prod ? 'production' : 'development',
+
   devtool: 'source-map',
 
-  entry: './src/index.tsx',
+  entry: prod ? './src/index.tsx' : './src/index.dev.tsx',
 
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -61,6 +64,11 @@ const config = {
       patterns: [{ from: './static' }],
     }),
   ],
+
+  devServer: {
+    host: '0.0.0.0',
+    port: '8000',
+  },
 };
 
 module.exports = config;
