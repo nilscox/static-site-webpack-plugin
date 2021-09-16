@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    // "target": "es5",
+    "target": "esnext",
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "strict": true
+  },
+  "files": ["index.ts", "eval.d.ts"]
+}
