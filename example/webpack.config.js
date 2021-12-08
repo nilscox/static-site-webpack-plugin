@@ -38,14 +38,6 @@ const config = {
         test: /\.css$/,
         use: [MiniCssExtractPlugin.loader, 'css-loader'],
       },
-
-      {
-        test: /\.woff2?$/,
-        type: 'asset/resource',
-        generator: {
-          filename: 'fonts/[name].[hash][ext]',
-        },
-      },
     ],
   },
 

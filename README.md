@@ -1,6 +1,6 @@
-A webpack plugin inspired by [static-site-generator-webpack-plugin](https://www.npmjs.com/package/static-site-generator-webpack-plugin) to build static HTML pages with a webpack configuration targetting a node environment.
+A webpack plugin inspired by [static-site-generator-webpack-plugin](https://www.npmjs.com/package/static-site-generator-webpack-plugin) to build static HTML pages with a webpack configuration targeting a node environment.
 
-This plugin takes your webpack config targetting a web environment, and generates a build of your bundle [targetting node](https://webpack.js.org/concepts/targets). It then uses this bundle to render your app's static pages and save them to html files, allowing you to serve them statically.
+This plugin takes your webpack config targeting a web environment, and generates a build of your bundle [targeting node](https://webpack.js.org/concepts/targets). It then uses this bundle to render your app's static pages and save them to html files, allowing you to serve them statically.
 
 > ⚠️ this is a node a production-ready webpack plugin, it's just a few lines of code I wanted to keep somewhere.
 
@@ -11,7 +11,7 @@ Static site generator webpack plugin allows to generate static pages from the sa
 <details>
   <summary>Context (expand)</summary>
 
-This happened to me while rendering a site which uses `@emotion/react`, and a solution would be to use webpack's `aliasFields`, as described in [this issue](https://github.com/emotion-js/emotion/issues/1246#issuecomment-601363607). It did help a bit, but then my ssr bundle was depending on standard node packages (such as `stream`), which are not available in the enviroment the code is evaluated.
+This happened to me while rendering a site which uses `@emotion/react`, and a solution would be to use webpack's `aliasFields`, as described in [this issue](https://github.com/emotion-js/emotion/issues/1246#issuecomment-601363607). It did help a bit, but then my ssr bundle was depending on standard node packages (such as `stream`), which are not available in the environment the code is evaluated.
 
 But the comment right above on the gitub issue advises to handle this problem with the SSR solution that is used. This is where the idea of a webpack plugin making two builds, one for each environment, came from.
 
@@ -20,6 +20,8 @@ But the comment right above on the gitub issue advises to handle this problem wi
 ### How?
 
 This plugins extends your config and changes a few things such as setting the target to `node`, and builds a temporary bundle of your app which is then evaluated and executed. Your entrypoint needs to expose a function that will be called on every path you want to render.
+
+Note that when the plugin invokes this function, it passes the browser's compilation's [stats object](https://webpack.js.org/api/stats), which references paths and hashes of the browser bundle. This allows to reference the assets that will be available in the output directory after the build.
 
 ### Example?
 

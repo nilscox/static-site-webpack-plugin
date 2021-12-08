@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "build": "webpack",
-    "build:watch": "nodemon -w webpack.config.js -w ../static-site-webpack-plugin.js -x webpack",
+    "build:watch": "nodemon -w webpack.config.js -w ../index.js -x webpack",
     "start": "webpack serve"
   },
   "devDependencies": {

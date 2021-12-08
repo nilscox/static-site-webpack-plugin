@@ -1,13 +1,23 @@
-import MemoryFs from 'memory-fs';
 import evaluate from 'eval';
 import fs from 'fs';
-import webpack, { Compilation, Compiler, Configuration, Stats as WebpackStats } from 'webpack';
+import { inspect } from 'util';
+
+import MemoryFs from 'memory-fs';
+import webpack, { Compilation, Compiler, Configuration, Stats } from 'webpack';
+
+const i = (obj: any, depth = 0) => {
+  return inspect(obj, false, depth, true);
+};
+
+const dump = (config: object, filename = '/tmp/config.json') => {
+  fs.writeFileSync(filename, JSON.stringify(config, null, 2));
+};
 
 type Webpack = typeof webpack;
 
 type Locals = {
   path: string;
-  webpackStats: WebpackStats;
+  webpackStats: Stats;
 };
 
 type RenderFunction = (locals: Locals) => string;
@@ -82,7 +92,9 @@ module.exports = class StaticSiteWebpackPlugin {
     return render as RenderFunction;
   }
 
-  renderPages(webpackStats: WebpackStats, render: RenderFunction) {
+  renderPages(webpackStats: Stats, render: RenderFunction) {
+    // console.log(i(webpackStats.assets, 2));
+
     return this.options.paths.map((path) => [
       path.endsWith('.html') ? path : `${path.replace(/\/$/, '')}/index.html`,
       render({ path, webpackStats }),
@@ -136,12 +148,8 @@ module.exports = class StaticSiteWebpackPlugin {
       (plugin) => !(plugin instanceof StaticSiteWebpackPlugin),
     );
 
-    // this.dumpConfig(ssrConfig);
+    // dump(ssrConfig);
 
     return overrideConfig ? overrideConfig(ssrConfig) : ssrConfig;
-  }
-
-  dump(config: object, filename = '/tmp/config.json') {
-    fs.writeFileSync(filename, JSON.stringify(config, null, 2));
   }
 };
