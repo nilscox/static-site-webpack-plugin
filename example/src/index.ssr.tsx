@@ -1,5 +1,6 @@
+import { createMemoryHistory } from 'history';
 import ReactDOMServer from 'react-dom/server';
-import { MemoryRouter } from 'react-router-dom';
+import { Router } from 'react-router-dom';
 import { Stats } from 'webpack';
 
 import { App } from './App';
@@ -7,9 +8,10 @@ import { App } from './App';
 type DocumentProps = {
   bundle: string;
   styles: string;
+  children: React.ReactNode;
 };
 
-const Document: React.FC<DocumentProps> = ({ bundle, styles, children }) => (
+const Document = ({ bundle, styles, children }: DocumentProps) => (
   <html>
     <head>
       <title>StaticSiteWebpackPlugin</title>
@@ -40,11 +42,11 @@ export default ({ path, webpackStats }: Locals) => {
   return (
     '<!DOCTYPE html>' +
     ReactDOMServer.renderToString(
-      <MemoryRouter initialEntries={[path]}>
+      <Router location={path} navigator={createMemoryHistory()}>
         <Document bundle={getAssets('js')[0]} styles={getAssets('css')[0]}>
           <App />
         </Document>
-      </MemoryRouter>,
+      </Router>,
     )
   );
 };
