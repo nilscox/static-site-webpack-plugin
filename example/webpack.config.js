@@ -1,11 +1,11 @@
 const path = require('path');
-const { ProvidePlugin } = require('webpack');
+const { ProvidePlugin, EnvironmentPlugin } = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const StaticSiteWebpackPlugin = require('../index');
 
-const { NODE_ENV = 'development' } = process.env;
+const { NODE_ENV = 'development', PUBLIC_PATH = '' } = process.env;
 const prod = NODE_ENV === 'production';
 
 /** @type {import('webpack').Configuration} */
@@ -19,7 +19,7 @@ const config = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].[contenthash].js',
-    publicPath: '/',
+    publicPath: PUBLIC_PATH,
     clean: true,
   },
 
@@ -43,6 +43,8 @@ const config = {
 
   plugins: [
     new ProvidePlugin({ React: 'react' }),
+
+    new EnvironmentPlugin({ PUBLIC_PATH }),
 
     new MiniCssExtractPlugin({ filename: 'styles/[name].[fullhash].css' }),
 

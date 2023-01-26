@@ -42,7 +42,7 @@ export default ({ path, webpackStats }: Locals) => {
   return (
     '<!DOCTYPE html>' +
     ReactDOMServer.renderToString(
-      <Router location={path} navigator={createMemoryHistory()}>
+      <Router location={path} navigator={createMemoryHistory()} basename={publicPath}>
         <Document bundle={getAssets('js')[0]} styles={getAssets('css')[0]}>
           <App />
         </Document>

@@ -58,9 +58,19 @@ module.exports = class StaticSiteWebpackPlugin {
     }
     renderPages(webpackStats, render) {
         // console.log(i(webpackStats.assets, 2));
+        const { publicPath } = webpackStats.toJson();
+        const removeTrailingSlash = (str) => {
+            return str.replace(/\/$/, '');
+        };
+        const prependPublicPath = (path) => {
+            if (publicPath && publicPath !== 'auto') {
+                return [removeTrailingSlash(publicPath), path].join('/');
+            }
+            return path;
+        };
         return this.options.paths.map((path) => [
-            path.endsWith('.html') ? path : `${path.replace(/\/$/, '')}/index.html`,
-            render({ path, webpackStats }),
+            path.endsWith('.html') ? path : `${removeTrailingSlash(path).replace(/\/$/, '')}/index.html`,
+            render({ path: prependPublicPath(path), webpackStats }),
         ]);
     }
     async compileSsrBundle(webpack, compilation) {
