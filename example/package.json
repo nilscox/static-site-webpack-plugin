@@ -9,26 +9,26 @@
     "start": "webpack serve"
   },
   "devDependencies": {
-    "@types/react": "^18.0.15",
-    "@types/react-dom": "^18.0.6",
+    "@types/react": "^18.0.27",
+    "@types/react-dom": "^18.0.10",
     "@types/react-router-dom": "^5.3.3",
     "copy-webpack-plugin": "^11.0.0",
-    "css-loader": "^6.7.1",
-    "mini-css-extract-plugin": "^2.6.1",
-    "nodemon": "^2.0.19",
-    "ts-loader": "^9.3.1",
-    "typescript": "^4.6.4",
-    "webpack": "^5.74.0",
-    "webpack-cli": "^4.10.0",
-    "webpack-dev-server": "^4.9.3"
+    "css-loader": "^6.7.3",
+    "mini-css-extract-plugin": "^2.7.2",
+    "nodemon": "^2.0.20",
+    "ts-loader": "^9.4.2",
+    "typescript": "^4.9.4",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1",
+    "webpack-dev-server": "^4.11.1"
   },
   "dependencies": {
-    "@emotion/react": "^11.10.0",
-    "@emotion/styled": "^11.10.0",
-    "@fontsource/jetbrains-mono": "^4.5.9",
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@fontsource/jetbrains-mono": "^4.5.12",
     "history": "^5.3.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.3.0"
+    "react-router-dom": "^6.8.0"
   }
 }

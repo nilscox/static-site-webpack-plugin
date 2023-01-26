@@ -12,8 +12,8 @@
   },
   "devDependencies": {
     "@types/memory-fs": "^0.3.3",
-    "@types/node": "^18.6.4",
+    "@types/node": "^18.11.18",
     "@types/webpack": "^5.28.0",
-    "typescript": "~4.7.4"
+    "typescript": "~4.9.4"
   }
 }
