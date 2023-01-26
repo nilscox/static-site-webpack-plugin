@@ -2,7 +2,7 @@ A webpack plugin inspired by [static-site-generator-webpack-plugin](https://www.
 
 This plugin takes your webpack config targeting a web environment, and generates a build of your bundle [targeting node](https://webpack.js.org/concepts/targets). It then uses this bundle to render your app's static pages and save them to html files, allowing you to serve them statically.
 
-> ⚠️ this is a node a production-ready webpack plugin, it's just a few lines of code I wanted to keep somewhere.
+> ⚠️ this is _not_ a production-ready webpack plugin, it's just a few lines of code I wanted to keep somewhere.
 
 ### Why?
 
